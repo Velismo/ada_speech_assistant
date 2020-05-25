@@ -23,6 +23,15 @@ def record_audio(ask = False):
         except sr.RequestError:
             print('Lo siento, el sistema no funciona correctamente')
         return voice_data
+def ada_speak(audio_string):
+    tts = gTTS(text=audio_string, lang='es')
+    r = random.randint(1, 10000000)
+    audio_file = 'audio-' + str(r) + '.mp3'
+    tts.save(audio_file)
+    playsound.playsound(audio_file)
+    print(audio_string)
+    os.remove(audio_file)
+
 
 def respond(voice_data):
     if '¿Cómo te llamas?' in voice_data:
