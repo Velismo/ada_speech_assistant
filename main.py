@@ -13,16 +13,18 @@ r = sr.Recognizer()
 def record_audio(ask = False):
     with sr.Microphone() as source:
         if ask:
-            print(ask)
+            ada_speak(ask)
         audio = r.listen(source)
         voice_data = ''
         try:
             voice_data = r.recognize_google(audio)
         except sr.UnknownValueError:
-            print('Lo siento, no te he entendido')
+            ada_speak('Lo siento, no te he entendido')
         except sr.RequestError:
-            print('Lo siento, el sistema no funciona correctamente')
+            ada_speak('Lo siento, el sistema no funciona correctamente')
         return voice_data
+
+
 def ada_speak(audio_string):
     tts = gTTS(text=audio_string, lang='es')
     r = random.randint(1, 10000000)
@@ -35,24 +37,24 @@ def ada_speak(audio_string):
 
 def respond(voice_data):
     if '¿Cómo te llamas?' in voice_data:
-        print('Me llamo Ada')
+        ada_speak('Me llamo Ada')
     if '¿Qué hora es?' in voice_data:
-        print(ctime())
+        ada_speak(ctime())
     if 'buscar' in voice_data:
         search = record_audio('¿Qué quieres buscar?')
         url = 'https://google.com/search?q=' + search
         webbrowser.get().open(url)
-        print('Esto es lo que he encontrado por ' + search)
+        ada_speak('Esto es lo que he encontrado por ' + search)
     if 'encontrar' in voice_data:
         location = record_audio('¿Qué quieres localizar?')
         url = 'https://google.nl/maps/place/' + location + '/&amp;'
         webbrowser.get().open(url)
-        print('Esto es lo que he encontrado por ' + location)
+        ada_speak('Esto es lo que he encontrado por ' + location)
     if 'salir' in voice_data:
         exit()
 
 time.sleep(1)
-print('¿Cómo puedo ayudarte?')
+ada_speak('¿Cómo puedo ayudarte?')
 while 1:
     voice_data = record_audio()
     respond(voice_data)
