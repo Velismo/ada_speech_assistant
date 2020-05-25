@@ -1,6 +1,10 @@
 import speech_recognition as sr
 import webbrowser
 import time
+import playsound
+import os
+import random
+from gtts import gTTS
 from time import ctime
 
 r = sr.Recognizer()
