@@ -25,10 +25,15 @@ def respond(voice_data):
     if '¿Qué hora es?' in voice_data:
         print(ctime())
     if 'buscar' in voice_data:
-        search = record_audio('¿Qué quires buscar?')
+        search = record_audio('¿Qué quieres buscar?')
         url = 'https://google.com/search?q=' + search
         webbrowser.get().open(url)
         print('Esto es lo que he encontrado por ' + search)
+    if 'encontrar' in voice_data:
+        location = record_audio('¿Qué quieres localizar?')
+        url = 'https://google.nl/maps/place/' + location + '/&amp;'
+        webbrowser.get().open(url)
+        print('Esto es lo que he encontrado por ' + location)
 
 print('¿Cómo puedo ayudarte?')
 voice_data = record_audio()
